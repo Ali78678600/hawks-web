@@ -1,392 +1,230 @@
-<html lang="en"><head>
-    <title>𝙷𝙰𝚆𝙺 𝙱𝙾𝙾𝚂 𝚃𝚁𝙰𝙲𝙺𝙴𝚁</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Marry Me?</title>
     <style>
-       
-        .whatsapp-button {
-            text-decoration: none !important;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25d366;
-            color: #fff;
-            text-decoration: none;
+        /* Resetting some default browser styles */
+        body, h1, p, button {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Styling the body */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1529456581832-55fbcf100d98') no-repeat center center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Container for content */
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        /* Title style */
+        .title {
+            font-size: 3rem;
+            color: #e74c3c;
+            margin-bottom: 20px;
             font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s;
-            z-index: 1000;
+            animation: fadeIn 2s ease-in-out;
         }
 
-        .whatsapp-button:hover {
-            background-color: #128c7e;
+        /* Message style */
+        .message {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 40px;
+            animation: fadeIn 2s ease-in-out 1s;
         }
 
-        .whatsapp-icon {
-            margin-right: 10px;
+        /* Button styles */
+        .button {
+            font-size: 1.2rem;
+            padding: 15px 35px;
+            margin: 10px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .yes {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .no {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+        }
+
+        .yes:hover {
+            background-color: #218838;
+        }
+
+        .no:hover {
+            background-color: #c9302c;
+        }
+
+        /* Keyframes for fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Heart animations */
+        .heart {
+            position: absolute;
             width: 20px;
-            height: auto;
-            vertical-align: middle;
+            height: 20px;
+            background-color: red;
+            transform: rotate(45deg);
+            animation: float 5s infinite ease-in-out;
         }
 
-        /* Adjustments for small screens */
-        @media (max-width: 600px) {
-            .whatsapp-button {
-                font-size: 14px;
-                padding: 8px 16px;
-                bottom: 10px;
-                right: 10px;
-            }
+        .heart::before, .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
 
-            .whatsapp-icon {
-                width: 16px;
-            }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 10px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+        }
+
+        /* Footer style for sender name */
+        .footer {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        /* Kiss animation */
+        .kiss {
+            font-size: 5rem;
+            position: fixed;
+            animation: kissAnimation 1s forwards;
+            opacity: 0;
+        }
+
+        @keyframes kissAnimation {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0; transform: scale(2); }
+        }
+
+        /* Happiness message */
+        .happy-message {
+            font-size: 2rem;
+            color: #ff1493;
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: happyAnimation 3s forwards;
+        }
+
+        @keyframes happyAnimation {
+            0%, 100% { opacity: 0; }
+            10%, 90% { opacity: 1; }
         }
     </style>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
-<style>
- 
-
-#pageloader
-{
-  background: rgba( 255, 255, 255, 0.8 );
-  height: 100%;
-  display:none;
-  position: relative;
-  width: 100%;
-  z-index: 9999;
-}
-
-#pageloader img
-{
-  position: absolute;
-  margin-left: 35%;
-  margin-top: 30%;
-  width:auto;
-  max-height:100px;
-}
-body{
-    overflow-x: hidden;
-}
-
-@media screen and (max-width: 576px) {
-#pageloader img
-{
-  position: absolute;
-  margin-left: 10%;
-  margin-top: 70%;
-  width:auto;
-  max-height:100px;
-}
-
-}
-
-.table-responsive {
-    width: 800px !important;
-    margin: 0 auto !important; /* Center horizontally */
-    text-align: center; /* Center the contents */
-}
-
-  
- 
- 
-
-</style></head>
-
-
-
-
-
-
-
-
-
-  
-  
-  
-
-
-
-   
-
-
- 
-   
-  
-
-
-
+</head>
 <body>
-
-<a class="whatsapp-button" href="https://api.whatsapp.com/send?phone=923215948578" target="_blank">
-        <img class="whatsapp-icon" src="https://pngimg.com/d/whatsapp_PNG95151.png" alt="WhatsApp Icon">
-        Chat on WhatsApp
-    </a>
-
-
     <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-12">
-                <div id="pageloader">
-                    <img src="form_loader.gif">
-                </div>
-            </div>
-        </div>
-    </div>
- 
- 
-
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body {margin:0;font-family:Arial}
-
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-
-.topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 25px;
-}
-
-.active {
-  background-color: #04AA6D;
-  color: white;
-}
-
-.topnav .icon {
-  display: none;
-}
-
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
-
-.dropdown .dropbtn {
-  font-size: 17px;    
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.topnav a:hover, .dropdown:hover .dropbtn {
-  background-color: green;
-  color: white;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-@media screen and (max-width: 600px) {
-  .topnav a:not(:first-child), .dropdown .dropbtn {
-    display: none;
-  }
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-  .topnav.responsive .dropdown {float: none;}
-  .topnav.responsive .dropdown-content {position: relative;}
-  .topnav.responsive .dropdown .dropbtn {
-    display: block;
-    width: 100%;
-    text-align: left;
-  }
-}
-</style>
-
-
-
-<div class="container col-md-6" id="cont">
-  <div class="jumbotron" style="background-image: url('../assets/images/background7.jpg')">
-    <div class="row d-flex justify-content-center">
-      <div class="col-md-12 ">
-        <form method="POST" id="myform"> 
-
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <div class="form-group text-center">
-                <input type="number" name="number" id="num" class="form-control" placeholder="Enter No / CNIC">
-            </div>
-            <div class="form-group text-center">
-                <button type="submit" name="search" id="save" class="btn btn-primary btn-sm" style="margin-bottom: 5px;">Search</button>
-            </div>
-<a href="https://nadradb.rf.gd/hawkfinder/?i=1" id="save" class="btn btn-primary btn-sm" style="margin-bottom: 5px; float: right;"> Franchise Data</a>
-
-        </div>
+        <h1 class="title">Madiha, Will You Marry Me?</h1>
+        <p class="message">Madiha, you are the love of my life, and I can't imagine my future without you. Will you make me the happiest person in the world?</p>
+        <button class="button yes" onclick="handleYes()">Yes</button>
+        <button class="button no" onclick="handleNo()">No</button>
+        <div class="footer">With all my love, Hassan</div>
     </div>
 
-        </form>
-      </div>
-      </div>
+    <!-- Heart animations -->
+    <div class="heart" style="left: 10%; animation-duration: 3s;"></div>
+    <div class="heart" style="left: 20%; animation-duration: 4s; animation-delay: 1s;"></div>
+    <div class="heart" style="left: 30%; animation-duration: 5s; animation-delay: 2s;"></div>
+    <div class="heart" style="left: 50%; animation-duration: 6s; animation-delay: 3s;"></div>
+    <div class="heart" style="left: 70%; animation-duration: 4s; animation-delay: 1s;"></div>
+    <div class="heart" style="left: 80%; animation-duration: 3s; animation-delay: 2s;"></div>
 
-    </div>
-</div>
+    <!-- Kiss and Happiness Message -->
+    <div id="kiss" class="kiss">💋</div>
+    <div id="happyMessage" class="happy-message">Hassan is very happy 💋💋💋!</div>
 
-<div class="row mt-3 d-flex justify-content-center">
-    <div class="col-md-6" style="text-align:center;">
-<button class="btn btn-success" id="downloadImage">Download as PNG</button>        </div>
-        </div>
-                
-  <div class="row mt-3 d-flex justify-content-center" id="printdiv" style="
-    display: flex !important;
-    justify-content: flex-start !important;
-    align-items: center !important;">
-    <div class="col-md-6">
-      
-            <div class="container mt-4">
+    <script>
+        function handleYes() {
+            // Show happiness message with kiss emojis
+            const happyMessage = document.getElementById('happyMessage');
+            happyMessage.style.opacity = '1';
+            happyMessage.style.animation = 'happyAnimation 5s forwards';
 
-            <h2>Result</h2>
+            // Show multiple kiss animations
+            for (let i = 0; i < 3; i++) {
+                showKiss();
+            }
 
-            
-        </div>        
-      
-      </div>
-  </div>
-
-  
-
-
-<script>
- var $ = jQuery;
-  $(document).ready(function(){
-      $("#myform").on("submit", function(){
-            $("#cont").css("opacity","0.3");
-            $("#pageloader").show();
-            return true;
-      });//submit
-    
-});
-
-    var expiryDate = new Date("2024-04-20 00:24:13").getTime();
-    
-    if('2024-04-20 00:24:13' == '' || '2024-04-20 00:24:13' == undefined ){
-        
-        $("#countdown").html('<a href="https://wa.me/+923215948578" style="text-decoration:none;color:white;cursor:pointer" target="_blank">Buy Now</a>');
-    }
-    else{
-    var x = setInterval(function() {
-        var now = new Date().getTime();
-        var distance = expiryDate - now;
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        $("#countdown").text(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
-
-        if (distance < 0) {
-            clearInterval(x);
-            $("#countdown").text("Expired");
+            // Reset message and kisses after 5 seconds
+            setTimeout(() => {
+                happyMessage.style.opacity = '0';
+                document.querySelectorAll('.kiss').forEach(kiss => {
+                    kiss.style.opacity = '0';
+                });
+            }, 5000);
         }
-    }, 1000);
-    }
-    
-    function getCurrentDateTime() {
-      var now = new Date();
-      var day = ("0" + now.getDate()).slice(-2);
-      var month = ("0" + (now.getMonth() + 1)).slice(-2);
-      var year = now.getFullYear();
-      var hours = ("0" + now.getHours()).slice(-2);
-      var minutes = ("0" + now.getMinutes()).slice(-2);
 
-      return year + "-" + month + "-" + day + "_" + hours + ":" + minutes;
-    }
-    
-    
-    $(document).on('click','#printImage',function(){
-        
-        var printContents = $('#printdiv').html();
-        var printWindow = window.open('', '_blank');
-        printWindow.document.write('<html><head><title>Print</title></head><body>' + printContents + '</body></html>');
-        printWindow.document.close();
-        printWindow.print();
-        printWindow.document.close();
-        
-    });
-    
-     $(document).on('click','#downloadImage',function(){
-    var element = document.getElementById('printdiv');
-     html2canvas(element, { logging: true, scale: 2 }).then(function (canvas) {
-        var imgData = canvas.toDataURL('image/png');
-        var fileName = 'MinhailSimDatabase-' + getCurrentDateTime() + '.png';
+        function showKiss() {
+            const kiss = document.createElement('div');
+            kiss.className = 'kiss';
+            kiss.innerHTML = '💋';
+            document.body.appendChild(kiss);
 
-        var link = document.createElement('a');
-        link.href = imgData;
-        link.download = fileName;
-        link.click();
-    });  
-    });
-    
- if ( window.history.replaceState ) {
-  window.history.replaceState( null, null, window.location.href );
-}
-</script>
+            // Random position for kiss
+            kiss.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+            kiss.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            kiss.style.opacity = '1';
 
+            // Remove kiss after animation
+            setTimeout(() => {
+                kiss.style.opacity = '0';
+            }, 1000);
+        }
 
-
-</body></html>
+        function handleNo() {
+            alert("That's okay, Madiha, I will always cherish you!");
+        }
+    </script>
+</body>
+</html>
